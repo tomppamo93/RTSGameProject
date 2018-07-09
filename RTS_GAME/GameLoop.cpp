@@ -30,19 +30,24 @@ void GameLoop::StartGame(SDLCore *SDLC)
 		switch (m_MenuIndex)
 		{
 		case MainMenuIndex:
+			if (OM != nullptr)
+			{
+				delete OM;
+			}
 			MM->MMLoop(this, SDLC);
 			break;
 		case OptionsMenuIndex:
-
+			if (MM != nullptr)
+			{
+				delete MM;
+			}
+				
 			break;
 		default:
 			break;
 		}
 		SDL_Delay(20);
 	}
-	
-	delete OM;
-	delete MM;
 }
 
 

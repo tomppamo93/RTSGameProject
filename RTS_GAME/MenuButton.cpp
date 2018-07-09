@@ -15,7 +15,7 @@ MenuButton::~MenuButton()
 
 
 
-void MenuButton::SetButton(MenuButton *button, std::string name, int xpos, int ypos, int xsize, int ysize, bool active, bool pressed, SDL_Texture *textureup, SDL_Texture *texturedown)
+void MenuButton::SetButton(MenuButton *button, std::string name, int xpos, int ypos, int xsize, int ysize, bool active, bool pressed)
 {
 	button->m_name = name;
 
@@ -26,7 +26,4 @@ void MenuButton::SetButton(MenuButton *button, std::string name, int xpos, int y
 
 	button->m_active = active;
 	button->m_buttonpressed = pressed;
-
-	button->m_buttontextureup = textureup;
-	button->m_buttontexturedown = texturedown;
 }

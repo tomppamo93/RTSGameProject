@@ -3,14 +3,17 @@
 MainMenu::MainMenu(SDLCore *SDLC)
 {
 	//Alustetaan mainmenu
-	SDLC->LoadTextureFromFile(SDLC->GetRenderer(), "shit", m_background);
+	SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Mainmenu_bg.png", m_background);
 	std::string BName[MMButtonCount] = { "Start Game", "Options", "Load Game", "Credits", "Quit Game" };
 	
 		for (int i = 0; i < MMButtonCount; i++)
 		{
 			int x = 50;
 			int y = i * 150 + 50;
-			MenuButton::SetButton(&m_button[i], BName[i], x, y, 50, 150, true, false, );
+			MenuButton::SetButton(&m_button[i], BName[i], x, y, 50, 150, true, false);
+			SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Button_down.png", MenuButton::GetTextureDown(&m_button[i]));
+			SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Button_up.png", MenuButton::GetTextureUp(&m_button[i]));
+			SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Button_mouseover.png", MenuButton::GetTextureMouseover(&m_button[i]));
 		}
 }
 	
