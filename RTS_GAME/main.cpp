@@ -1,7 +1,5 @@
 #include "GameLoop.h"
-#include "SDL.h"
 #include "SDLCore.h"
-#include "SDL_ttf.h"
 #include <iostream>
 
 SDLCore *SDLC;

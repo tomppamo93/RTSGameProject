@@ -5,6 +5,7 @@
 #include "SDL.h"
 #include "SDLCore.h"
 #include "SDL_ttf.h"
+#include <iostream>
 
 class GameLoop
 {
@@ -24,4 +25,3 @@ private:
 	bool m_quit;
 	int m_MenuIndex;
 };
-

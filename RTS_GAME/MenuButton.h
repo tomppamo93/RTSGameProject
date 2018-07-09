@@ -12,8 +12,8 @@ public:
 	static bool IsButtonPressed(MenuButton *button)	{ return button->m_buttonpressed; }
 	static bool IsButtonActive(MenuButton *button)	{ return button->m_active; }
 
-	static void ButtonPressed(MenuButton *button, bool bp)	{ button->ButtonPressed = bp; }
-	static void ButtonActive(MenuButton *button, bool bp)	{ button->ButtonActive = bp; }
+	static void ButtonPressed(MenuButton *button, bool bp)	{ button->m_buttonpressed = bp; }
+	static void ButtonActive(MenuButton *button, bool bp)	{ button->m_active = bp; }
 
 	static void SetButton(MenuButton *button, std::string name, int xpos, int ypos, int xsize, int ysize, bool active, bool pressed);
 

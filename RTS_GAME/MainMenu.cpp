@@ -2,6 +2,7 @@
 
 MainMenu::MainMenu(SDLCore *SDLC)
 {
+	m_quit = false;
 	//Alustetaan mainmenu
 	SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Mainmenu_bg.png", m_background);
 	std::string BName[MMButtonCount] = { "Start Game", "Options", "Load Game", "Credits", "Quit Game" };
@@ -22,7 +23,7 @@ MainMenu::~MainMenu()
 {
 }
 
-int MainMenu::MMLoop(GameLoop *game, SDLCore *SDLC)
+int MainMenu::MMLoop(SDLCore *SDLC)
 {
 		while (SDL_PollEvent(SDLC->GetEvent()))
 		{
@@ -54,7 +55,7 @@ int MainMenu::MMLoop(GameLoop *game, SDLCore *SDLC)
 			//If user closes the window
 			if (SDLC->GetEvent()->type == SDL_QUIT)
 			{
-				game->SetQuit(true);
+				m_quit = true;
 			}
 			SDL_Delay(20);
 		}

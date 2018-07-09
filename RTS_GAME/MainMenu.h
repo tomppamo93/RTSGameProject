@@ -3,7 +3,6 @@
 #include "SDL.h"
 #include "MenuButton.h"
 #include "SDLCore.h"
-#include "GameLoop.h"
 
 #define MMButtonCount 5
 
@@ -14,13 +13,13 @@ public:
 	~MainMenu();
 
 	void QuitGame(SDLCore *SDLC);
-	int MMLoop(GameLoop *game, SDLCore *SDLC);
+	int MMLoop(SDLCore *SDLC);
 
-
+	bool GetQuit() { return m_quit; };
 
 private:
 	int index;
+	bool m_quit;
 	SDL_Texture *m_background;
 	MenuButton m_button[MMButtonCount];
 };
-
