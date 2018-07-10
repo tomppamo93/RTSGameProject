@@ -150,15 +150,14 @@ int SDLCore::RenderText(std::string text, std::string fontfile, SDL_Color color,
 }
 
 //Funktion avulla voidaan ladata kuva tiedosto ja tallentaa se tekstuuriksi
-int SDLCore::LoadTextureFromFile(SDL_Renderer *ren, std::string file, SDL_Texture *texture)
+SDL_Texture *SDLCore::LoadTextureFromFile(SDL_Renderer *ren, std::string file)
 {
-	texture = IMG_LoadTexture(ren, file.c_str());
+	SDL_Texture *texture = IMG_LoadTexture(ren, file.c_str());
 	if (texture == nullptr)
 	{
 		std::cout << "IMG_LoadTexture: Error" << std::endl;
-		return 1;
 	}
-	return 0;
+	return texture;
 }
 
 std::string SDLCore::GetResPath(const std::string &subDir) {

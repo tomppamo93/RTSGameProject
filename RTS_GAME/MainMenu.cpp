@@ -1,21 +1,30 @@
 #include "MainMenu.h"
 
+
+
 MainMenu::MainMenu(SDLCore *SDLC)
 {
 	m_quit = false;
 	//Alustetaan mainmenu
-	SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Mainmenu_bg.png", m_background);
+	m_background = SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Mainmenu_bg.png");
+	m_quitmenu = SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Quitmenu_bg.png");
 	std::string BName[MMButtonCount] = { "Start Game", "Options", "Load Game", "Credits", "Quit Game" };
+
+	SDLC->RenderTexture(m_background, SDLC->GetRenderer(), 0, 0);
 	
 		for (int i = 0; i < MMButtonCount; i++)
 		{
 			int x = 50;
 			int y = i * 150 + 50;
-			MenuButton::SetButton(&m_button[i], BName[i], x, y, 50, 150, true, false);
-			SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Button_down.png", MenuButton::GetTextureDown(&m_button[i]));
-			SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Button_up.png", MenuButton::GetTextureUp(&m_button[i]));
-			SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Button_mouseover.png", MenuButton::GetTextureMouseover(&m_button[i]));
+			MenuButton::SetButton(&m_button[i], BName[i], x, y, 150, 50, true, false
+				, SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Button_up.png")
+				, SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Button_down.png")
+				, SDLC->LoadTextureFromFile(SDLC->GetRenderer(), SDLC->GetResPath("") + "Button_mouseover.png"), 0);
+
+			SDLC->RenderTexture(MenuButton::GetTextureUp(&m_button[i]), SDLC->GetRenderer(), MenuButton::GetPosX(&m_button[i]), MenuButton::GetPosY(&m_button[i]));
 		}
+	
+		SDL_RenderPresent(SDLC->GetRenderer());
 }
 	
 
@@ -23,10 +32,34 @@ MainMenu::~MainMenu()
 {
 }
 
-int MainMenu::MMLoop(SDLCore *SDLC)
+int MainMenu::MMLoop(SDLCore *SDLC, GameLoop *Game)
 {
+	while (!m_quit)
+	{
+		
 		while (SDL_PollEvent(SDLC->GetEvent()))
 		{
+			SDL_Delay(20);
+			if (SDLC->GetEvent()->button.button == SDL_BUTTON_LEFT)
+			{
+				switch (SDLC->GetEvent()->button.type)
+				{
+				case SDL_MOUSEBUTTONDOWN:
+
+					MenuButton::ButtonPressedDown(SDLC, m_button, MMButtonCount);
+
+					break;
+
+				case SDL_MOUSEBUTTONUP:
+
+					MenuButton::ButtonPressedUp(SDLC, m_button, MMButtonCount, Game);
+
+					break;
+				default:
+					break;
+				}
+			}
+
 			if (SDLC->GetEvent()->type == SDL_KEYUP)
 			{
 				//Kun käyttäjä painaa pakene nappia niin ikkuna menee kiinni
@@ -35,21 +68,7 @@ int MainMenu::MMLoop(SDLCore *SDLC)
 					QuitGame(SDLC);
 				}
 
-				if (SDLC->GetEvent()->button.button == SDL_BUTTON_LEFT)
-				{
-					switch (SDLC->GetEvent()->button.type)
-					{
-					case SDL_MOUSEBUTTONDOWN:
 
-						break;
-
-					case SDL_MOUSEBUTTONUP:
-
-						break;
-					default:
-						break;
-					}
-				}
 			}
 
 			//If user closes the window
@@ -57,8 +76,8 @@ int MainMenu::MMLoop(SDLCore *SDLC)
 			{
 				m_quit = true;
 			}
-			SDL_Delay(20);
 		}
+	}
 	return 0;
 }
 

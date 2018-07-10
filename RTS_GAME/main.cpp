@@ -17,7 +17,7 @@ int wmain(int argc,char **argv)
 
 	//Käynnistetään peli
 	GameLoop *Game = new GameLoop();
-	Game->StartGame(SDLC);
+	Game->StartGame(SDLC, Game);
 
 	//Sammutetaan peli
 	delete Game;

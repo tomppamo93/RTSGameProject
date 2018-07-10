@@ -1,10 +1,5 @@
 #include "GameLoop.h"
-
-
-
-#define MainMenuIndex 0
-#define OptionsMenuIndex 1
-
+#include "MainMenu.h"
 
 GameLoop::GameLoop()
 {
@@ -19,7 +14,7 @@ GameLoop::~GameLoop()
 }
 
 //Tässä funktiossa ajetaan pelin päärutiinia
-void GameLoop::StartGame(SDLCore *SDLC)
+void GameLoop::StartGame(SDLCore *SDLC, GameLoop *Game)
 {
 	MainMenu *MM = nullptr;
 	OptionsMenu *OM = nullptr;
@@ -41,8 +36,9 @@ void GameLoop::StartGame(SDLCore *SDLC)
 				delete OM;
 			}
 			//Käynnistetään MainMenu luuppi
-			MM->MMLoop(SDLC);
+			MM->MMLoop(SDLC, Game);
 			m_quit = MM->GetQuit();
+
 			break;
 		case OptionsMenuIndex:
 			//Jos Optionsmenua ei ole niin se luodaan
@@ -61,7 +57,6 @@ void GameLoop::StartGame(SDLCore *SDLC)
 		default:
 			break;
 		}
-		SDL_Delay(20);
 	}
 
 

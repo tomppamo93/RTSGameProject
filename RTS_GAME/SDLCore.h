@@ -23,7 +23,7 @@ public:
 	int RenderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
 	int RenderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int w, int h);
 	int RenderText(std::string text, std::string fontfile, SDL_Color color, int fontsize, SDL_Renderer *ren, int x, int y);
-	int LoadTextureFromFile(SDL_Renderer *ren, std::string file, SDL_Texture *texture);
+	SDL_Texture *LoadTextureFromFile(SDL_Renderer *ren, std::string file);
 
 	void logSDLError(std::ostream &os, const std::string &msg);
 
